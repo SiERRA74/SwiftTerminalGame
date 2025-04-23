@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "Cave Entrance",
+    "next_room": [2],
+    "intro": "The treasure awaits, you are at the entrance of the cave, but it's pitch black in there, \nyou can't risk to plunge completely in the unknown. \nSo you look around, rocks, sticks and pieces of old clothes shredded around. \nSmoking the cigar in your mouth, you get an idea...",
+    "items": ["Stick", "Rocks", "Ragged clothes", "Cigar", "Lighter"],
+    "items-desc":{
+      "Stick": "A sturdy wooden stick, dry, long like a sword",
+      "Rocks": "A few rough stones on the ground",
+      "Ragged clothes": "Torn and dirty fabric scraps. Pretty dusty but still flammable",
+      "Cigar": "A half-used cigar in my mouth",
+      "Lighter": "My favorite vintage lighter, I don't smoke that often, but I like this piece"
+    },
+    "solution": [1,3,5],
+    "solved": false,
+    "success": "Well done, you managed to craft a functionning torch ! Your way is clear now"
+  },
+  {
+    "id": 2,
+    "name": "Hall of Echoes",
+    "next_room": [3],
+    "intro": "As you move forward, the cave widens into a vast hall. Your steps echo endlessly, \nand faint whispers dance along the stone walls. \nThere's a strange marking on the floor and a rusty mechanism nearby.",
+    "items": ["Metal Rod", "Ancient Gear", "Stone Tablet", "Torch"],
+    "items-desc":{
+      "Metal Rod": "A long, slightly bent rod of iron. It feels cold and heavy in your hands—maybe useful for prying or reaching.",
+      "Ancient Gear": "Rusted cogwheel from some long-forgotten machine. The teeth are worn, but it might still fit into something.",
+      "Stone Tablet": "Flat slab with strange engravings. Some symbols look like numbers, but they’re faded and hard to decipher.",
+      "Torch": "makeshift torch, still burning steadily. The flames cast eerie shadows on the cavern walls."
+    },
+    "solution": [1,2],
+    "solved": false,
+    "success": "You restored the mechanism! A secret path reveals itself behind a sliding wall."
+  },
+  {
+    "id": 3,
+    "name": "Underground Lake",
+    "next_room": [4],
+    "intro": "The path descends to a serene underground lake. The water glows faintly,\nand something shimmers beneath the surface. \nA small wooden boat lies nearby, half sunken.",
+    "items": ["Bucket", "Rope", "Rusty Key", "Wood Plank"],
+    "items-desc":{
+      "Bucket": "Old wooden bucket, half-rotten but still holding water. It leaks a little, but it could be useful.",
+      "Rope": "A coiled length of frayed rope. It’s damp but strong enough to bear some weight.",
+      "Rusty Key": "Small, corroded key lying near the water’s edge. It might fit a lock somewhere deeper in the cave.",
+      "Wood Plank": "A warped piece of timber, probably from the broken boat. It floats, so maybe it can be part of a raft."
+    },
+    "solution": [2,4],
+    "solved": false,
+    "success": "You crafted a raft and crossed the lake safely. On the other side, a narrow path continues."
+  },
+{
+  "id": 4,
+  "name": "Crystal Chamber",
+  "next_room": [5],
+  "intro": "You enter a breathtaking chamber illuminated by glowing crystals. \nTheir light refracts in mesmerizing patterns across the walls. \nIn the center stands an ornate chest with a four-digit lock. \nScattered around are peculiar objects—perhaps clues lie within them...",
+  "items": ["Crystal Shard", "Mirror", "Golden Coin", "Dusty Tome"],
+  "items-desc": {
+    "Crystal Shard": "A jagged fragment pulsating with soft light. Upon closer inspection, you spot a tiny **'3'** etched near its base.",
+    "Mirror": "The tarnished surface distorts your reflection, but when tilted just right, you see a faint **'7'** scratched into the silver backing.",
+    "Golden Coin": "The coin bears an unknown king’s profile. Flipping it reveals a small **'1'** hidden in the intricate border design.",
+    "Dusty Tome": "Flipping through the brittle pages, you find a corner torn away, leaving behind a handwritten **'5'** in faded ink."
+  },
+  "solution": [3715],
+  "solved": false,
+  "success": "The lock clicks open! Inside the chest lies a **crystalline key**, humming with energy. A previously hidden door shimmers into view."
+}
+]
