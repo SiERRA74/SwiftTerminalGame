@@ -1,8 +1,43 @@
 import Foundation
+import Glibc
+
+
 
 func clear(){
     print("\u{001B}[2J")
 }
+
+func help_message() {
+    clear()
+    print("""
+    You're playing text-based exploration game where you solve puzzles,
+    combine items, and uncover secrets to progress deeper.
+
+    ===  CONTROLS ===
+    [1] Read intro      - Read the room's description.
+    [2] List items      - See all interactable objects in the room.
+    [3] Inspect objects - Read the description of the adventurer of each objects
+    [4] Solve puzzle    - Combine items or input codes to progress.
+    [5] Move            - Travel to the next room (if solved).
+    [6] Quit            - Exit the game.
+    [?] Help            - To see this message.
+
+    === PUZZLE MECHANICS ===
+    - Some rooms require crafting (e.g., combine stick + cloth = torch).
+    - Others need codes (e.g., inspect items to find hidden digits).
+    - Example input for combining: "1 3" (item numbers separated by spaces).
+
+    === TIPS ===
+    - Pay attention to item descriptions—they often hide clues!
+    - Wrong combinations? Just try again or type 'x' to cancel.
+    - Not all items are useful—some are red herrings. 🐟
+
+    Press [ENTER] to return to the game...
+    """)
+    _ = readLine()  // Wait for user to press Enter
+    clear()
+}
+
 
 func loadRooms() -> [Int: Room] {
     let url = URL(fileURLWithPath: "rooms.json") // file in the same dir
@@ -17,7 +52,7 @@ func loadRooms() -> [Int: Room] {
     }
 }
 
-
+//Structure of the rooms
 struct Room: Codable {
     let id: Int
     let name: String
@@ -50,6 +85,7 @@ struct Room: Codable {
 
     }
 
+
     // Add CodingKeys to handle JSON key mismatches
     enum CodingKeys: String, CodingKey {
         case id, name, next_room, intro, items
@@ -57,6 +93,7 @@ struct Room: Codable {
         case solution, solved, success
     }
 }
+
 
 func solution_check(guess: String) -> [Int] {
     return guess.components(separatedBy: " ").compactMap { Int($0) }
@@ -70,6 +107,39 @@ func start() {
 }
 
 
+func inspect() {
+    guard let currentRoom = rooms[currentRoomID] else {
+        print("Error: Current room not found")
+        return
+    }
+
+    let items = currentRoom.itemsdesc  // Correct dictionary declaration
+    let itemKeys = Array(items.keys)   // Get array of item names
+    var index = 0
+
+    while true {
+        clear()
+        print("Item Inspection (use ← → arrows to navigate, ENTER to exit)")
+        print("========================================")
+        print("Current item: \(itemKeys[index])")
+        print("\nDescription:")
+        print(items[itemKeys[index]] ?? "No description available")
+
+        if let key = readKeyPress() {
+            switch key {
+                case "left":
+                    index = (index - 1 + itemKeys.count) % itemKeys.count
+                case "right":
+                    index = (index + 1) % itemKeys.count
+                case "enter":
+                    return
+                default:
+                    break
+            }
+        }
+    }
+}
+
 var rooms = loadRooms()
 var currentRoomID = 1
 
@@ -81,9 +151,11 @@ func main() {
         print("\nWhat do you want to do?")
         print("1. Read intro")
         print("2. List items")
-        print("3. Solve puzzle")
-        print("4. Move")
-        print("5. Quit")
+        print("3. Inspect objects")
+        print("4. Solve puzzle")
+        print("5. Move")
+        print("6. Quit")
+        print("?. Help")
 
         if let choice = readLine() {
             switch choice {
@@ -96,7 +168,11 @@ func main() {
 
                 case "2":
                     currentRoom.listItems()
+
                 case "3":
+                    inspect()
+
+                case "4":
                     currentRoom.solve()
                     while true {
                         guard let input = readLine() else { continue }
@@ -115,7 +191,7 @@ func main() {
                         }
                     }
 
-                case "4":
+                case "5":
                     if currentRoom.solved == true{
                         print("Next rooms : \(currentRoom.next_room)")
                         print("Enter room number to go:")
@@ -129,9 +205,14 @@ func main() {
                         print("You need to solve the room first")
                     }
 
-                case "5":
+                case "6":
                     print("Thanks for playing!")
                     break
+
+                case "?":
+                    help_message()
+                    break
+
                 default:
                     print("Invalid choice")
             }
